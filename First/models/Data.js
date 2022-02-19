@@ -2,8 +2,8 @@ const mongoose=require('mongoose')
 const { Schema } = mongoose;
 
 const dataSchema = new Schema({
-  title:  String, // String is shorthand for {type: String}
-  author: String,
+  name:  String, // String is shorthand for {type: String}
+  email: String,
   body:   String,
  
 });
