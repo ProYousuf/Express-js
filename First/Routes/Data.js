@@ -24,5 +24,28 @@ router.post('/save',async (req,res)=>{
    }
     })
 
+    router.delete('/delete/:id',async (req,res)=>{
+        console.log(req.params.id)
+        const data= await dataSchema.deleteOne({_id:req.params.id})
+        res.send({msg:"deleted data",data:data})
+       })
+
+       router.post('/update/:id', async(req,res)=>{
+        console.log(req.params.id,req.body)
+        
+        try{
+            const up= await dataSchema.findByIdAndUpdate({_id:req.params.id},{
+                name:  req.body.name, 
+                email: req.body.email,
+                body:   req.body.body,
+            })
+            res.send({msg:"updated",up:up})
+        }catch(err){
+            res.send({msg:"error"})
+        }
+        
+       })
+
+
 
 module.exports=router
