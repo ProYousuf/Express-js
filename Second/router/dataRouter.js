@@ -1,9 +1,10 @@
 const express = require('express')
 const routes = express.Router()
 const {Add,Show,showOne,Delete,Update}=require('../controller/dataController')
+const checkLogin=require('../middleware/checkLogin')
 
 
-routes.get('/show', Show)
+routes.get('/show', checkLogin, Show)
 
 routes.get('/showSingle/:id', showOne)
 
