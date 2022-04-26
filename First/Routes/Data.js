@@ -3,6 +3,8 @@ const express = require('express')
 const router = express.Router()
 const dataSchema = require('../models/Data')
 const mongoose = require('mongoose');
+const { body, validationResult } = require('express-validator');
+const FormCheck = require('../middlewares/FormCheck');
 
 router.get('/show', async (req, res) => {
     const data = await dataSchema.find()
@@ -17,7 +19,15 @@ router.get('/showSingle/:id', async (req, res) => {
    
 })
 
-router.post('/save', async (req, res) => {
+router.post('/save', 
+
+body('name').isLength({ min: 3 }).not().isEmpty(),
+body('email').isEmail(),
+
+
+ FormCheck,
+
+async (req, res) => {
     console.log(req.body)
     const dt = new dataSchema({
         name: req.body.name, 
